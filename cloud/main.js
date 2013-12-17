@@ -1,6 +1,85 @@
 // Use AV.Cloud.define to define as many cloud functions as you want.
 // For example:
 AV.Cloud.define("hello", function(request, response) {
-  console.log(request.params);
-  response.success("Hello world!");
+  response.success("fdfds");
 });
+
+var gAllSchedule = null;
+var gNowSchedule = null;
+
+function getAllSchedule()
+{
+    var query = new AV.Query("Config");
+    query.equalTo("Key", "ScheduleId");
+    query.find({
+    		success: function(results){
+    			var o = results[0];
+    			var sid = o.get("Content");
+    			console.log("getSchedule success! ", sid);
+    			var query = new AV.Query(sid);
+    			query.find({
+    				success: function(results){
+    					gAllSchedule = results;
+    					// console.log("query info ", gAllSchedule);
+    				},
+    				error: function(){
+    					console.log("getSchedule1 error");
+    				}
+    			});
+    		},
+    		error: function(){
+    			console.log("getSchedule2 error");
+    		}
+    });
+}
+
+function getCurrentSchedule(){
+	var nowTime = new Date();	
+	var nowHours = nowTime.getHours();
+	var nowMinutes = nowTime.getMinutes();
+	var nowSeconds = nowTime.getSeconds();
+	for (var index = 0; index < gAllSchedule.length; index++){
+		var brand = gAllSchedule[index];
+		var brandName = brand.get("Brand");
+		var startTime = brand.get("StartTime");
+		var endTime = brand.get("EndTime");
+		nowTime.setYear(1900+startTime.getYear());
+		nowTime.setMonth(startTime.getMonth());
+		nowTime.setDate(startTime.getDate());
+		console.log("brandName is ", brandName);
+		console.log("startTime is ", startTime);
+		console.log("endTime is ", endTime);
+		console.log("nowTime is ", nowTime);
+		if (nowTime - startTime > 0){
+			if (nowTime - endTime < 0){
+				console.log("now is in ", brandName);
+				return brand;
+			}
+		}
+	}
+	return null;
+}
+
+AV.Cloud.define("commitAnswer", function(request, response){
+	var selectBrand = request.params["select"];
+	console.log("request is ", selectBrand);
+	var currentSchedule = getCurrentSchedule();
+	if (currentSchedule != null){
+		if (selectBrand == currentSchedule.get("Brand")){
+			console.log("selection is correct! ", selectBrand);
+		}
+	}
+	else{
+		console.log("there is no brand now");
+	}
+});
+    
+         
+AV.Cloud.define("syncTime", function(request, response){
+	console.log("request is syncTime");
+	var nowTime = new Date();
+	var timeObj = {"time" : nowTime};
+	response.success(timeObj);
+});
+                
+getAllSchedule();
