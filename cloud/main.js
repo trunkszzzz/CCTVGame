@@ -103,10 +103,10 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 						nowTime.setYear(1900+startTime.getYear());
 						nowTime.setMonth(startTime.getMonth());
 						nowTime.setDate(startTime.getDate());
-						console.log("brandName is ", brandName);
-						console.log("startTime is ", startTime);
-						console.log("endTime is ", endTime);
-						console.log("nowTime is ", nowTime);
+						// console.log("brandName is ", brandName);
+						// console.log("startTime is ", startTime);
+						// console.log("endTime is ", endTime);
+						// console.log("nowTime is ", nowTime);
 						if (nowTime - startTime > 0){
 							if (nowTime - endTime < 0){
 								console.log("now is in ", brandName);
@@ -114,7 +114,7 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 								console.log("testCommitAnswer's user is ", theUser);
 								var s = theUser["TotalScore"];
 								console.log("current score is ", s);
-								s += 1;
+								// s += 1;
 								// request.params["user"]["TotalScore"] = s;
 								response.success("you selected ", brandName);
 								break;
