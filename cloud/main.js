@@ -65,16 +65,17 @@ AV.Cloud.define("commitAnswer", function(request, response){
 	console.log("commitAnswer's request is ", request);
 	var selectBrand = request.params["select"];
 	console.log("request is ", selectBrand);
-	var currentSchedule = getCurrentSchedule();
-	if (currentSchedule != null){
-		if (selectBrand == currentSchedule.get("Brand")){
-			console.log("selection is correct! ", selectBrand);
-			response.success("commitAnswer ok");
-		}
-	}
-	else{
-		console.log("there is no brand now");
-	}
+	response.success("commitAnswer ok");
+	// var currentSchedule = getCurrentSchedule();
+	// if (currentSchedule != null){
+		// if (selectBrand == currentSchedule.get("Brand")){
+			// console.log("selection is correct! ", selectBrand);
+			// response.success("commitAnswer ok");
+		// }
+	// }
+	// else{
+		// console.log("there is no brand now");
+	// }
 });
     
          
