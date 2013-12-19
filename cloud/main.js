@@ -77,7 +77,7 @@ AV.Cloud.define("commitAnswer", function(request, response){
 });
     
 AV.Cloud.define("testCommitAnswer", function(request, response){
-	console.log("testCommitAnswer's request is ", request);
+	// console.log("testCommitAnswer's request is ", request);
 	var selectBrand = request.params["select"];
 	console.log("request is ", selectBrand);
     var query = new AV.Query("Config");
@@ -110,9 +110,10 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 						if (nowTime - startTime > 0){
 							if (nowTime - endTime < 0){
 								console.log("now is in ", brandName);
-								var s = request.params["user"].get("TotalScore");
-								s += 1;
-								request.params["user"].set("TotalScore", s);
+								console.log("testCommitAnswer's request is ", request);
+								// var s = request.params["user"].get("TotalScore");
+								// s += 1;
+								// request.params["user"].set("TotalScore", s);
 								response.success("you selected ", brandName);
 							}
 						}
