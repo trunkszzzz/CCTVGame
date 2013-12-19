@@ -81,5 +81,9 @@ AV.Cloud.define("syncTime", function(request, response){
 	var timeObj = {"time" : nowTime};
 	response.success(timeObj);
 });
-                
+       
+AV.Cloud.define("testHttp", function(request, response){
+	console.log("testHttp's request is ", request);
+});    
+
 getAllSchedule();
