@@ -9,6 +9,7 @@ var gNowSchedule = null;
 
 function getAllSchedule()
 {
+	console.log("getAllSchedule!!!!!!!!!!!!!!!!!!!!!!");
     var query = new AV.Query("Config");
     query.equalTo("Key", "ScheduleId");
     query.find({
@@ -68,6 +69,7 @@ AV.Cloud.define("commitAnswer", function(request, response){
 	if (currentSchedule != null){
 		if (selectBrand == currentSchedule.get("Brand")){
 			console.log("selection is correct! ", selectBrand);
+			response.success("commitAnswer ok");
 		}
 	}
 	else{
