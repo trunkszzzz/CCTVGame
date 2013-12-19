@@ -4,8 +4,8 @@ AV.Cloud.define("hello", function(request, response) {
   response.success("fdfds");
 });
 
-var gAllSchedule = null;
-var gNowSchedule = null;
+var gAllSchedule;
+var gNowSchedule;
 
 function getAllSchedule()
 {
