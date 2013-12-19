@@ -1,8 +1,5 @@
 // Use AV.Cloud.define to define as many cloud functions as you want.
 // For example:
-AV.Cloud.define("hello", function(request, response) {
-  response.success("fdfds");
-});
 
 var gAllSchedule;
 var gNowSchedule;
@@ -20,8 +17,8 @@ function getAllSchedule()
     			var query = new AV.Query(sid);
     			query.find({
     				success: function(results){
-    					gAllSchedule = results;
-    					console.log("query info ", gAllSchedule);
+    					console.log("query info ", results);
+    					return results;
     				},
     				error: function(){
     					console.log("getSchedule1 error");
@@ -33,6 +30,7 @@ function getAllSchedule()
     		}
     });
 }
+gAllSchedule = getAllSchedule();
 
 function getCurrentSchedule(){
 	var nowTime = new Date();	
@@ -92,4 +90,3 @@ AV.Cloud.define("testHttp", function(request, response){
 	response.success(gAllSchedule);
 });    
 
-getAllSchedule();
