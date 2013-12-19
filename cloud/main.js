@@ -1,7 +1,7 @@
 // Use AV.Cloud.define to define as many cloud functions as you want.
 // For example:
 
-var gAllSchedule;
+
 var gNowSchedule;
 
 function getAllSchedule()
@@ -30,7 +30,8 @@ function getAllSchedule()
     		}
     });
 }
-gAllSchedule = getAllSchedule();
+
+var gAllSchedule = getAllSchedule();
 
 function getCurrentSchedule(){
 	var nowTime = new Date();	
@@ -63,72 +64,16 @@ AV.Cloud.define("commitAnswer", function(request, response){
 	console.log("commitAnswer's request is ", request);
 	var selectBrand = request.params["select"];
 	console.log("request is ", selectBrand);
-	
-	console.log("getAllSchedule!!!!!!!!!!!!!!!!!!!!!!");
-    var query = new AV.Query("Config");
-    query.equalTo("Key", "ScheduleId");
-    query.find({
-    		success: function(results){
-    			var o = results[0];
-    			var sid = o.get("Content");
-    			console.log("getSchedule success! ", sid);
-    			var query = new AV.Query(sid);
-    			query.find({
-    				success: function(results){
-    					// console.log("query info ", results);
-    					// return results;
-				    	var nowTime = new Date();	
-					var nowHours = nowTime.getHours();
-					var nowMinutes = nowTime.getMinutes();
-					var nowSeconds = nowTime.getSeconds();
-					for (var index = 0; index < results.length; index++){
-						var brand = results[index];
-						var brandName = brand.get("Brand");
-						var startTime = brand.get("StartTime");
-						var endTime = brand.get("EndTime");
-						nowTime.setYear(1900+startTime.getYear());
-						nowTime.setMonth(startTime.getMonth());
-						nowTime.setDate(startTime.getDate());
-						console.log("brandName is ", brandName);
-						console.log("startTime is ", startTime);
-						console.log("endTime is ", endTime);
-						console.log("nowTime is ", nowTime);
-						if (nowTime - startTime > 0){
-							if (nowTime - endTime < 0){
-								// console.log("now is in ", brandName);
-								// return brand;
-								if (brand != null){
-									if (selectBrand == brand.get("Brand")){
-										console.log("selection is correct! ", selectBrand);
-										response.success("commitAnswer ok");
-									}
-								}
-								else{
-									console.log("there is no brand now");
-								}
-							}
-						}
-					}
-    				},
-    				error: function(){
-    					console.log("getSchedule1 error");
-    				}
-    			});
-    		},
-    		error: function(){
-    			console.log("getSchedule2 error");
-    		}
-    });
-	// var currentSchedule = getCurrentSchedule();
-	// if (currentSchedule != null){
-		// if (selectBrand == currentSchedule.get("Brand")){
-			// console.log("selection is correct! ", selectBrand);
-			// response.success("commitAnswer ok");
-		// }
-	// }
-	// else{
-		// console.log("there is no brand now");
-	// }
+	var currentSchedule = getCurrentSchedule();
+	if (currentSchedule != null){
+		if (selectBrand == currentSchedule.get("Brand")){
+			console.log("selection is correct! ", selectBrand);
+			response.success("commitAnswer ok");
+		}
+	}
+	else{
+		console.log("there is no brand now");
+	}
 });
     
          
