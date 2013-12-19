@@ -110,7 +110,7 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 						if (nowTime - startTime > 0){
 							if (nowTime - endTime < 0){
 								console.log("now is in ", brandName);
-								int s = request.params["user"].get("TotalScore");
+								var s = request.params["user"].get("TotalScore");
 								s += 1;
 								request.params["user"].set("TotalScore", s);
 								response.success("you selected ", brandName);
