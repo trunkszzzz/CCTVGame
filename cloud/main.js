@@ -21,7 +21,7 @@ function getAllSchedule()
     			query.find({
     				success: function(results){
     					gAllSchedule = results;
-    					// console.log("query info ", gAllSchedule);
+    					console.log("query info ", gAllSchedule);
     				},
     				error: function(){
     					console.log("getSchedule1 error");
@@ -65,17 +65,16 @@ AV.Cloud.define("commitAnswer", function(request, response){
 	console.log("commitAnswer's request is ", request);
 	var selectBrand = request.params["select"];
 	console.log("request is ", selectBrand);
-	response.success("commitAnswer ok");
-	// var currentSchedule = getCurrentSchedule();
-	// if (currentSchedule != null){
-		// if (selectBrand == currentSchedule.get("Brand")){
-			// console.log("selection is correct! ", selectBrand);
-			// response.success("commitAnswer ok");
-		// }
-	// }
-	// else{
-		// console.log("there is no brand now");
-	// }
+	var currentSchedule = getCurrentSchedule();
+	if (currentSchedule != null){
+		if (selectBrand == currentSchedule.get("Brand")){
+			console.log("selection is correct! ", selectBrand);
+			response.success("commitAnswer ok");
+		}
+	}
+	else{
+		console.log("there is no brand now");
+	}
 });
     
          
