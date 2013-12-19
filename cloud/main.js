@@ -76,7 +76,56 @@ AV.Cloud.define("commitAnswer", function(request, response){
 	}
 });
     
-         
+AV.Cloud.define("testCommitAnswer", function(request, response){
+	console.log("testCommitAnswer's request is ", request);
+	var selectBrand = request.params["select"];
+	console.log("request is ", selectBrand);
+    var query = new AV.Query("Config");
+    query.equalTo("Key", "ScheduleId");
+    query.find({
+    		success: function(results){
+    			var o = results[0];
+    			var sid = o.get("Content");
+    			console.log("getSchedule success! ", sid);
+    			var query = new AV.Query(sid);
+    			query.find({
+    				success: function(results){
+    					console.log("testCommitAnswer's success find", results);
+					var nowTime = new Date();	
+					var nowHours = nowTime.getHours();
+					var nowMinutes = nowTime.getMinutes();
+					var nowSeconds = nowTime.getSeconds();
+					for (var index = 0; index < results.length; index++){
+						var brand = results[index];
+						var brandName = brand.get("Brand");
+						var startTime = brand.get("StartTime");
+						var endTime = brand.get("EndTime");
+						nowTime.setYear(1900+startTime.getYear());
+						nowTime.setMonth(startTime.getMonth());
+						nowTime.setDate(startTime.getDate());
+						console.log("brandName is ", brandName);
+						console.log("startTime is ", startTime);
+						console.log("endTime is ", endTime);
+						console.log("nowTime is ", nowTime);
+						if (nowTime - startTime > 0){
+							if (nowTime - endTime < 0){
+								console.log("now is in ", brandName);
+								response.success("you selected ", brandName);
+							}
+						}
+					}
+    				},
+    				error: function(){
+    					console.log("getSchedule1 error");
+    				}
+    			});
+    		},
+    		error: function(){
+    			console.log("getSchedule2 error");
+    		}
+    });
+}); 
+
 AV.Cloud.define("syncTime", function(request, response){
 	console.log("syncTime's request is ", request);
 	console.log("request is syncTime");
