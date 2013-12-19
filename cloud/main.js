@@ -61,6 +61,7 @@ function getCurrentSchedule(){
 }
 
 AV.Cloud.define("commitAnswer", function(request, response){
+	console.log("commitAnswer's request is ", request);
 	var selectBrand = request.params["select"];
 	console.log("request is ", selectBrand);
 	var currentSchedule = getCurrentSchedule();
@@ -76,6 +77,7 @@ AV.Cloud.define("commitAnswer", function(request, response){
     
          
 AV.Cloud.define("syncTime", function(request, response){
+	console.log("syncTime's request is ", request);
 	console.log("request is syncTime");
 	var nowTime = new Date();
 	var timeObj = {"time" : nowTime};
