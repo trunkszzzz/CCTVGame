@@ -112,9 +112,11 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 								console.log("now is in ", brandName);
 								console.log("testCommitAnswer's request is ", request);
 								var s = request.params["user"]["TotalScore"];
+								console.log("current score is ", s);
 								s += 1;
 								request.params["user"]["TotalScore"] = s;
 								response.success("you selected ", brandName);
+								break;
 							}
 						}
 					}
