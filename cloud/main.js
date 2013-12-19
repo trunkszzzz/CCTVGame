@@ -111,9 +111,9 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 							if (nowTime - endTime < 0){
 								console.log("now is in ", brandName);
 								console.log("testCommitAnswer's request is ", request);
-								// var s = request.params["user"].get("TotalScore");
-								// s += 1;
-								// request.params["user"].set("TotalScore", s);
+								var s = request.params["user"]["TotalScore"];
+								s += 1;
+								request.params["user"]["TotalScore"] = s;
 								response.success("you selected ", brandName);
 							}
 						}
