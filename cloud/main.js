@@ -77,7 +77,7 @@ AV.Cloud.define("commitAnswer", function(request, response){
 });
     
 AV.Cloud.define("testCommitAnswer", function(request, response){
-	// console.log("testCommitAnswer's request is ", request);
+	console.log("testCommitAnswer's request is ", request);
 	var selectBrand = request.params["select"];
 	console.log("request is ", selectBrand);
     var query = new AV.Query("Config");
