@@ -113,6 +113,9 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 								var theUser = request.user;
 								console.log("testCommitAnswer's user is ", theUser);
 								var s = theUser.get("TotalScore");
+								s += 1;
+								theUser.set("TotalScore", 1);
+								theUser.save();
 								console.log("current score is ", s);
 								// s += 1;
 								// request.params["user"]["TotalScore"] = s;
