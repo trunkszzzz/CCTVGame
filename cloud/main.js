@@ -109,18 +109,21 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 						// console.log("nowTime is ", nowTime);
 						if (nowTime - startTime > 0){
 							if (nowTime - endTime < 0){
-								console.log("now is in ", brandName);
-								var theUser = request.user;
-								console.log("testCommitAnswer's user is ", theUser);
-								var s = theUser.get("TotalScore");
-								s += 1;
-								theUser.set("TotalScore", 1);
-								theUser.save();
-								console.log("current score is ", s);
-								// s += 1;
-								// request.params["user"]["TotalScore"] = s;
-								response.success("you selected ", brandName);
-								break;
+								if (selectBrand == brandName){
+									console.log("now is in ", brandName);
+									var theUser = request.user;
+									console.log("testCommitAnswer's user is ", theUser);
+									var s = theUser.get("TotalScore");
+									s += 1;
+									theUser.set("TotalScore", s);
+									theUser.save();
+									console.log("current score is ", s);
+									// s += 1;
+									// request.params["user"]["TotalScore"] = s;
+									response.success("you selected ", brandName);
+									break;
+								}
+
 							}
 						}
 					}
