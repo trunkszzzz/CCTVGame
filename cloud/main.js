@@ -112,19 +112,31 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 								if (selectBrand == brandName){
 									console.log("now is in ", brandName);
 									var theUser = request.user;
-									console.log("testCommitAnswer's user is ", theUser);
-									var s = theUser.get("TotalScore");
-									s += 1;
-									theUser.set("TotalScore", s);
 									var finishedItem = theUser.get("FinishedItem");
 									if (finishedItem == null){
 										console.log("finishedItem = new Array()");
 										finishedItem = new Array();
 									}
-									// console.log("brand is ", startTime);
+									Boolean found = false;
+									for (var index1 = 0; index1 < finishedItem.length; index1++){
+										var finished = finishedItem[index1];
+										if (finished == brand){
+											found = true;
+											break;
+										}
+									}
+									if (found){
+										continue;
+									}
+									console.log("testCommitAnswer's user is ", theUser);
+									var s = theUser.get("TotalScore");
+									s += 1;
+									theUser.set("TotalScore", s);
+
+									console.log("brand is ", brand);
 									// var brandItem = startTime.get("iso");
 									// console.log("brandItem is ", brandItem);
-									finishedItem.push(startTime);
+									finishedItem.push(brand);
 									theUser.set("FinishedItem", finishedItem);
 									theUser.save();
 									console.log("current score is ", s);
