@@ -117,15 +117,15 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 										console.log("finishedItem = new Array()");
 										finishedItem = new Array();
 									}
-									Boolean found = new Boolean(false);
+									int found = 0;
 									for (var index1 = 0; index1 < finishedItem.length; index1++){
 										var finished = finishedItem[index1];
 										if (finished == brand){
-											found = true;
+											found = 1;
 											break;
 										}
 									}
-									if (found){
+									if (found == 1){
 										continue;
 									}
 									console.log("testCommitAnswer's user is ", theUser);
