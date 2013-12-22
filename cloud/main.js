@@ -121,9 +121,9 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 										console.log("finishedItem = new Array()");
 										finishedItem = new Array();
 									}
-									var brandItem = brand.get("objectId");
-									console.log("brandItem is ", brandItem);
-									finishedItem.push(brandItem);
+									// var brandItem = brand.get("objectId");
+									// console.log("brandItem is ", brandItem);
+									finishedItem.push(startTime);
 									theUser.set("FinishedItem", finishedItem);
 									theUser.save();
 									console.log("current score is ", s);
