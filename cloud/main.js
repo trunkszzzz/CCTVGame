@@ -121,6 +121,7 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 									for (var index1 = 0; index1 < finishedItem.length; index1++){
 										var finished = finishedItem[index1];
 										if (finished == brand){
+											console.log("FOUND@@@!!!!!!!!!!!");
 											found = true;
 											break;
 										}
