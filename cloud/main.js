@@ -117,6 +117,8 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 									s += 1;
 									theUser.set("TotalScore", s);
 									theUser.save();
+									var finishedItem = theUser.get("FinishedItem");
+									finishedItem.push(brand.get("objectId"));
 									console.log("current score is ", s);
 									// s += 1;
 									// request.params["user"]["TotalScore"] = s;
