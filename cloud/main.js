@@ -100,6 +100,7 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 						var brandName = brand.get("Brand");
 						var startTime = brand.get("StartTime");
 						var endTime = brand.get("EndTime");
+						var times = brand.get("Times");
 						nowTime.setYear(1900+startTime.getYear());
 						nowTime.setMonth(startTime.getMonth());
 						nowTime.setDate(startTime.getDate());
@@ -120,7 +121,7 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 									var found = false;
 									for (var index1 = 0; index1 < finishedItem.length; index1++){
 										var finished = finishedItem[index1];
-										if (finished == brand){
+										if (finished == times){
 											console.log("FOUND@@@!!!!!!!!!!!");
 											found = true;
 											break;
@@ -133,11 +134,9 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 									var s = theUser.get("TotalScore");
 									s += 1;
 									theUser.set("TotalScore", s);
-
-									console.log("brand is ", brand);
 									// var brandItem = startTime.get("iso");
 									// console.log("brandItem is ", brandItem);
-									finishedItem.push(brand);
+									finishedItem.push(times);
 									theUser.set("FinishedItem", finishedItem);
 									theUser.save();
 									console.log("current score is ", s);
