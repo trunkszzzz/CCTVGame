@@ -132,20 +132,19 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 									}
 									console.log("testCommitAnswer's user is ", theUser);
 									var s = theUser.get("TotalScore");
+									if (s == null)
+									{
+										s = 0;
+									}
 									s += 1;
 									theUser.set("TotalScore", s);
-									// var brandItem = startTime.get("iso");
-									// console.log("brandItem is ", brandItem);
 									finishedItem.push(times);
 									theUser.set("FinishedItem", finishedItem);
 									theUser.save();
 									console.log("current score is ", s);
-									// s += 1;
-									// request.params["user"]["TotalScore"] = s;
 									response.success("you selected ", brandName);
 									break;
 								}
-
 							}
 						}
 					}
