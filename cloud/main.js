@@ -174,12 +174,17 @@ AV.Cloud.define("testHttp", function(request, response){
 	response.success(gAllSchedule);
 });    
 
-AV.Cloud.cronJob("Clear_Timer", "0 27 7 * * ?", function(){
+AV.Cloud.cronJob("Clear_Timer", "0 39 7 * * ?", function(){
 	var query = new AV.Query("_User");
 	query.find({
     		success: function(results){
     			console.log("User is ", results);
     			console.log("length is ", results.length);
+			for (var index = 0; index < results.length; index++){
+				var userData = results[index];
+				userData.set("FinishedItem", null);
+				userData.save();
+			}
     		},
     		error: function(){
 			console.log("User get error");
