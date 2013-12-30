@@ -174,7 +174,7 @@ AV.Cloud.define("testHttp", function(request, response){
 	response.success(gAllSchedule);
 });    
 
-AV.Cloud.cronJob("Clear_Timer", "0 0 * * * ?", function(){
+AV.Cloud.cronJob("Clear_Timer", "0 12 7 * * ?", function(){
 	console.log("AV.Cloud.cronJob");
 });
 
