@@ -6,7 +6,7 @@ var gNowSchedule;
 
 function getAllSchedule()
 {
-	console.log("getAllSchedule!!!!!!!!!!!!!!!!!!!!!!");
+	console.log("getAllSchedule!!!!!!!!!!!!!!!!!!!!!!", new Date());
     var query = new AV.Query("Config");
     query.equalTo("Key", "ScheduleId");
     query.find({
@@ -173,4 +173,8 @@ AV.Cloud.define("testHttp", function(request, response){
 	console.log("test gAllSchedule in testHttp", gAllSchedule);
 	response.success(gAllSchedule);
 });    
+
+AV.Cloud.cronJob("Clear_Timer", "0 0 * * * ?", function(){
+	console.log("AV.Cloud.cronJob");
+});
 
