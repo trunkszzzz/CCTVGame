@@ -180,7 +180,7 @@ AV.Cloud.cronJob("Clear_Timer", "0 27 7 * * ?", function(){
     		success: function(results){
     			console.log("User is ", results);
     			console.log("length is ", results.length);
-    		}
+    		},
     		error: function(){
 			console.log("User get error");
 		}
