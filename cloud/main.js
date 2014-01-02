@@ -60,6 +60,7 @@ function getCurrentSchedule(){
 	return null;
 }
 
+
 AV.Cloud.define("commitAnswer", function(request, response){
 	console.log("commitAnswer's request is ", request);
 	var selectBrand = request.params["select"];
@@ -76,6 +77,30 @@ AV.Cloud.define("commitAnswer", function(request, response){
 	}
 });
     
+    
+AV.Cloud.define("getRanking", function(request, response){
+	var theUser = request.user;
+	var query = new AV.Query("_User");
+	query.descending("TotalScore");
+	query.find({
+    		success: function(results){
+    			console.log("User is ", results);
+    			console.log("length is ", results.length);
+			for (var index = 0; index < results.length; index++){
+				var userData = results[index];
+				if (userData.get("username") == theUser.get("username")){
+					response.success("getRanking success ");
+					break;
+				}
+			}
+    		},
+    		error: function(){
+			console.log("getRanking error");
+			response.error("getRanking error");
+		}
+   });
+});
+
 AV.Cloud.define("testCommitAnswer", function(request, response){
 	console.log("testCommitAnswer's request is ", request);
 	var selectBrand = request.params["select"];
@@ -150,11 +175,13 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 					}
     				},
     				error: function(){
+    					response.error("getSchedule1 error");
     					console.log("getSchedule1 error");
     				}
     			});
     		},
     		error: function(){
+    			response.error("getSchedule2 error");
     			console.log("getSchedule2 error");
     		}
     });
@@ -183,6 +210,7 @@ AV.Cloud.cronJob("Clear_Timer", "0 0 0 * * ?", function(){
 			for (var index = 0; index < results.length; index++){
 				var userData = results[index];
 				userData.set("FinishedItem", null);
+				userData.set("TodayScore", 0);
 				userData.save();
 			}
     		},
