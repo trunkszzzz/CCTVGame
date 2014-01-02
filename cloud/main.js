@@ -77,7 +77,32 @@ AV.Cloud.define("commitAnswer", function(request, response){
 	}
 });
     
-    
+AV.Cloud.define("getTopRanking", function(request, response){
+	var theUser = request.user;
+	var query = new AV.Query("_User");
+	query.descending("TodayScore");
+	query.find({
+    		success: function(results){
+    			console.log("User is ", results);
+    			console.log("length is ", results.length);
+    			var ret = {};
+    			var top = 3;
+			for (var index = 0; index < results.length; index++){
+				if (top < 0)
+					break;
+				var userData = results[index];
+				ret[userData.get("username")] = userData.get("TodayScore");
+				top--;
+			}
+			response.success(ret);
+    		},
+    		error: function(){
+			console.log("getTopRanking error");
+			response.error("getTopRanking error");
+		}
+   });
+});
+   
 AV.Cloud.define("getRanking", function(request, response){
 	var theUser = request.user;
 	var query = new AV.Query("_User");
