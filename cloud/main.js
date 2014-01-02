@@ -90,13 +90,13 @@ AV.Cloud.define("getRanking", function(request, response){
 				var userData = results[index];
 				if (userData.get("username") == theUser.get("username")){
 					var ret = new Object();
-					for (var index1 = 0; index1 < 11; index1++){
-						int i = index - 11;
-						if (i < 0)
-							continue;
-						var ud = results[index1+i];
-						ret[ud.get("username")] = ud.get("TotalScore");
-					}
+					// for (var index1 = 0; index1 < 11; index1++){
+						// int i = index - 11;
+						// if (i < 0)
+							// continue;
+						// var ud = results[index1+i];
+						// ret[ud.get("username")] = ud.get("TotalScore");
+					// }
 					response.success(ret);
 					break;
 				}
