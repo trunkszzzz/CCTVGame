@@ -190,12 +190,19 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 									}
 									console.log("testCommitAnswer's user is ", theUser);
 									var s = theUser.get("TotalScore");
+									var tts = theUser.get("TodayScore");
 									if (s == null)
 									{
 										s = 0;
 									}
+									if (tts == null)
+									{
+										tts = 0;
+									}
 									s += 1;
+									tts += 1;
 									theUser.set("TotalScore", s);
+									theUser.set("TodayScore", tts);
 									finishedItem.push(times);
 									theUser.set("FinishedItem", finishedItem);
 									theUser.save();
