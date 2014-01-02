@@ -95,7 +95,7 @@ AV.Cloud.define("getRanking", function(request, response){
 						if (i < 0)
 							continue;
 						var ud = results[index1+i];
-						ret[ud.get("username")] = ud.get("TotalScore");
+						// ret[ud.get("username")] = ud.get("TotalScore");
 					}
 					response.success(ret);
 					break;
