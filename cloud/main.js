@@ -88,7 +88,7 @@ AV.Cloud.define("getTopRanking", function(request, response){
     			var ret = {};
     			var top = 3;
 			for (var index = 0; index < results.length; index++){
-				if (top < 0)
+				if (top <= 0)
 					break;
 				var userData = results[index];
 				ret[userData.get("username")] = userData.get("TodayScore");
