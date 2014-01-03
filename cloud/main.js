@@ -115,11 +115,18 @@ AV.Cloud.define("getRanking", function(request, response){
 				var userData = results[index];
 				if (userData.get("username") == theUser.get("username")){
 					var ret = {};
-					for (var index1 = 0; index1 < 11; index1++){
-						var i = index - 11;
-						if (i < 0)
+					for (var index1 = 0; index1 < 5; index1++){
+						var i = index + index1;
+						if (i < 0 || i >= results.length)
 							continue;
-						var ud = results[index1+i];
+						var ud = results[i];
+						ret[ud.get("username")] = ud.get("TotalScore");
+					}
+					for (var index1 = 1; index1 < 5; index1++){
+						var i = index - index1;
+						if (i < 0 || i >= results.length)
+							continue;
+						var ud = results[i];
 						ret[ud.get("username")] = ud.get("TotalScore");
 					}
 					response.success(ret);
