@@ -91,7 +91,7 @@ AV.Cloud.define("getTopRanking", function(request, response){
 				if (top <= 0)
 					break;
 				var userData = results[index];
-				ret[userData.get("username")] = userData.get("TodayScore");
+				ret[userData.get("Nickname")] = userData.get("TodayScore");
 				top--;
 			}
 			response.success(ret);
@@ -120,14 +120,14 @@ AV.Cloud.define("getRanking", function(request, response){
 						if (i < 0 || i >= results.length)
 							continue;
 						var ud = results[i];
-						ret[ud.get("username")] = ud.get("TotalScore");
+						ret[ud.get("Nickname")] = ud.get("TotalScore");
 					}
 					for (var index1 = 1; index1 < 6; index1++){
 						var i = index - index1;
 						if (i < 0 || i >= results.length)
 							continue;
 						var ud = results[i];
-						ret[ud.get("username")] = ud.get("TotalScore");
+						ret[ud.get("Nickname")] = ud.get("TotalScore");
 					}
 					response.success(ret);
 					break;
