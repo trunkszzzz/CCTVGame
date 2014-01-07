@@ -211,6 +211,7 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 			}
 		}
 	}
+	response.error("testCommitAnswer error");
 }); 
 
 // AV.Cloud.define("testCommitAnswer", function(request, response){
