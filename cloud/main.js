@@ -154,11 +154,11 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 	var nowSeconds = nowTime.getSeconds();
 	for (var index = 0; index < gAllSchedule.length; index++){
 		var brand = gAllSchedule[index];
-		console.log("i'm finding ", brand);
+		// console.log("i'm finding ", brand);
 		var brandName = brand.get("Brand");
-		var startTime = brand.get("StartTime").UTC();
-		var endTime = brand.get("EndTime").UTC();
-		console.log("end finding ", brand);
+		var startTime = brand.get("StartTime");
+		var endTime = brand.get("EndTime");
+		// console.log("end finding ", brand);
 		var times = brand.get("Times");
 		nowTime.setYear(1900+startTime.getYear());
 		nowTime.setMonth(startTime.getMonth());
