@@ -156,14 +156,13 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 		var brand = gAllSchedule[index];
 		// console.log("i'm finding ", brand);
 		var brandName = brand.get("Brand");
-		var startTime = brand.get("StartTime");
-		var endTime = brand.get("EndTime");
+		var startTime = brand.get("StartTime").UTC();
+		var endTime = brand.get("EndTime").UTC();
 		var times = brand.get("Times");
 		nowTime.setYear(1900+startTime.getYear());
 		nowTime.setMonth(startTime.getMonth());
 		nowTime.setDate(startTime.getDate());
 		console.log("当前商标 : ",brandName,"当前索引 :  ", index, " 现在时间是 ", nowTime, " 开始时间是 ", startTime, " 结束时间是 ", endTime);
-		
 		if (nowTime - startTime > 0){
 			if (nowTime - endTime < 0){
 				console.log("大致相同 : ", brandName);
