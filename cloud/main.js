@@ -154,6 +154,7 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 	var nowSeconds = nowTime.getSeconds();
 	for (var index = 0; index < gAllSchedule.length; index++){
 		var brand = gAllSchedule[index];
+		console.log("i'm finding ", brand);
 		var brandName = brand.get("Brand");
 		var startTime = brand.get("StartTime");
 		var endTime = brand.get("EndTime");
