@@ -162,7 +162,8 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 		nowTime.setYear(1900+startTime.getYear());
 		nowTime.setMonth(startTime.getMonth());
 		nowTime.setDate(startTime.getDate());
-		// console.log("时间是 :  ", startTime);(nowTime - startTime > 0){
+		// console.log("时间是 :  ", startTime);
+		if (nowTime - startTime > 0){
 			if (nowTime - endTime < 0){
 				console.log("大致相同 : ", brandName);
 				if (selectBrand == brandName){
