@@ -18,7 +18,7 @@ function getAllSchedule()
     			query.find({
     				success: function(results){
     					console.log("query info ", results);
-    					return results;
+    					gAllSchedule = results;
     				},
     				error: function(){
     					console.log("getSchedule1 error");
@@ -31,7 +31,8 @@ function getAllSchedule()
     });
 }
 
-var gAllSchedule = getAllSchedule();
+getAllSchedule();
+// var gAllSchedule = getAllSchedule();
 // var gAllSchedule = null;
 
 function getCurrentSchedule(){
