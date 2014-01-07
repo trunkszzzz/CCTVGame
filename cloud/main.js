@@ -19,6 +19,13 @@ function getAllSchedule()
     				success: function(results){
     					console.log("query info ", results);
     					gAllSchedule = results;
+			    		for (var index = 0; index < gAllSchedule.length; index++){
+						var brand = gAllSchedule[index];
+						var startTime = brand.get("StartTime");
+						var endTime = brand.get("EndTime");
+						startTime.setHours(startTime.getHours()-8);
+						endTime.setHours(endTime.getHours()-8);
+					}
     				},
     				error: function(){
     					console.log("getSchedule1 error");
