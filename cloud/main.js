@@ -162,7 +162,7 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 		nowTime.setYear(1900+startTime.getYear());
 		nowTime.setMonth(startTime.getMonth());
 		nowTime.setDate(startTime.getDate());
-		console.log("当前索引 :  ", index);
+		console.log("当前商标 : ",brandName,"当前索引 :  ", index, " 现在时间是 ", nowTime, " 开始时间是 ", startTime, " 结束时间是 ", endTime);
 		
 		if (nowTime - startTime > 0){
 			if (nowTime - endTime < 0){
