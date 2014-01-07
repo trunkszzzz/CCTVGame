@@ -154,7 +154,7 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 	var nowSeconds = nowTime.getSeconds();
 	for (var index = 0; index < gAllSchedule.length; index++){
 		var brand = gAllSchedule[index];
-		console.log("i'm finding ", brand);
+		// console.log("i'm finding ", brand);
 		var brandName = brand.get("Brand");
 		var startTime = brand.get("StartTime");
 		var endTime = brand.get("EndTime");
@@ -162,8 +162,7 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 		nowTime.setYear(1900+startTime.getYear());
 		nowTime.setMonth(startTime.getMonth());
 		nowTime.setDate(startTime.getDate());
-		console.log("时间是 :  ", startTime);
-		if (nowTime - startTime > 0){
+		// console.log("时间是 :  ", startTime);(nowTime - startTime > 0){
 			if (nowTime - endTime < 0){
 				console.log("大致相同 : ", brandName);
 				if (selectBrand == brandName){
