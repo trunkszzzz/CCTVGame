@@ -170,11 +170,9 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 		nowTime.setYear(1900+startTime.getYear());
 		nowTime.setMonth(startTime.getMonth());
 		nowTime.setDate(startTime.getDate());
-		console.log("当前商标 : ",brandName,"当前索引 :  ", index, " 现在时间是 ", nowTime, " 开始时间是 ", startTime, " 结束时间是 ", endTime);
-		if (nowTime - startTime > 0){
-			if (nowTime - endTime < 0){
-				console.log("大致相同 : ", brandName);
-				if (selectBrand == brandName){
+		// console.log("当前商标 : ",brandName,"当前索引 :  ", index, " 现在时间是 ", nowTime, " 开始时间是 ", startTime, " 结束时间是 ", endTime);e - endTime < 0){
+		// console.log("大致相同 : ", brandName);		
+		if (selectBrand == brandName){
 					console.log("now is in ", brandName);
 					var theUser = request.user;
 					var finishedItem = theUser.get("FinishedItem");
