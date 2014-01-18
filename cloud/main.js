@@ -20,6 +20,11 @@ function getAllSchedule()
     					console.log("query info ", results);
     					gAllSchedule = new Array(results.length);
     					for (var index = 0; index < results.length; index++){
+    						var brand = results[index];
+						var startTime = brand.get("StartTime");
+						var endTime = brand.get("EndTime");
+						// startTime.setHours(startTime.getHours());
+						// endTime.setHours(endTime.getHours());
     						console.log("starttime is " + startTime + " name is " + brand.get("Brand"));
 						gAllSchedule[index]=results[index];
 					}
