@@ -166,8 +166,7 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 		var startTime = brand.get("StartTime");
 		var endTime = brand.get("EndTime");
 		// console.log("end finding ", brand);
-		var times = brand.get("Times");
-		console.log("当前商标 : ",brandName,"当前索引 :  ", index, " 现在时间是 ", nowTime, " 开始时间是 ", startTime, " 结束时间是 ", endTime);
+		var times = brand.get("Times");	
 		nowTime.setYear(1900+startTime.getYear());
 		nowTime.setMonth(startTime.getMonth());
 		nowTime.setDate(startTime.getDate());
