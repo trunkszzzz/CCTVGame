@@ -23,8 +23,8 @@ function getAllSchedule()
 						var brand = gAllSchedule[index];
 						var startTime = brand.get("StartTime");
 						var endTime = brand.get("EndTime");
-						startTime.setHours(startTime.getHours());
-						endTime.setHours(endTime.getHours());
+						// startTime.setHours(startTime.getHours());
+						// endTime.setHours(endTime.getHours());
 						console.log("starttime is " + startTime + " name is " + brand.get("Brand"));
 					}
     				},
@@ -167,12 +167,11 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 		var brandName = brand.get("Brand");
 		var startTime = brand.get("StartTime");
 		var endTime = brand.get("EndTime");
-		// console.log("end finding ", brand);
 		var times = brand.get("Times");	
 		nowTime.setYear(1900+startTime.getYear());
 		nowTime.setMonth(startTime.getMonth());
 		nowTime.setDate(startTime.getDate());
-		console.log("Time is ", nowTime);
+		console.log("brand is ", brandName, " starttime is ", startTime, "endtime is ", endTime, " Time is ", nowTime);
 		if (nowTime - startTime > 0){
 			if (nowTime - endTime < 0){
 				console.log("大致相同 : ", brandName);
