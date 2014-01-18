@@ -214,7 +214,7 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 					theUser.save();
 					console.log("current score is ", s);
 					response.success("you selected ", brandName);
-					break;
+					return;
 				}
 			}
 		}
