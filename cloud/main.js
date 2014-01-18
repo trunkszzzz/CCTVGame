@@ -25,7 +25,7 @@ function getAllSchedule()
 						var endTime = brand.get("EndTime");
 						startTime.setHours(startTime.getHours());
 						endTime.setHours(endTime.getHours());
-						console.log("starttime is " + startTime);
+						console.log("starttime is " + startTime + " name is " + brand.get("Brand"));
 					}
     				},
     				error: function(){
