@@ -219,6 +219,7 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 			}
 		}
 	}
+	
 	console.log("啥也找不到的节奏！！！！！！！！");
 	response.error("testCommitAnswer error");
 }); 
