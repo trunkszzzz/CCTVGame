@@ -23,8 +23,9 @@ function getAllSchedule()
 						var brand = gAllSchedule[index];
 						var startTime = brand.get("StartTime");
 						var endTime = brand.get("EndTime");
-						startTime.setHours(startTime.getHours()+8);
-						endTime.setHours(endTime.getHours()+8);
+						startTime.setHours(startTime.getHours());
+						endTime.setHours(endTime.getHours());
+						console.log("starttime is " + startTime);
 					}
     				},
     				error: function(){
