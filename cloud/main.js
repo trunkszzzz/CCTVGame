@@ -18,15 +18,20 @@ function getAllSchedule()
     			query.find({
     				success: function(results){
     					console.log("query info ", results);
-    					gAllSchedule = results;
-			    		for (var index = 0; index < gAllSchedule.length; index++){
-						var brand = gAllSchedule[index];
-						var startTime = brand.get("StartTime");
-						var endTime = brand.get("EndTime");
-						// startTime.setHours(startTime.getHours());
-						// endTime.setHours(endTime.getHours());
-						console.log("starttime is " + startTime + " name is " + brand.get("Brand"));
+    					gAllSchedule = new Array(results.length);
+    					for (var index = 0; index < results.length; index++){
+    						console.log("starttime is " + startTime + " name is " + brand.get("Brand"));
+						gAllSchedule[index]=results[index];
 					}
+    					// gAllSchedule = results;
+			    		// for (var index = 0; index < gAllSchedule.length; index++){
+						// var brand = gAllSchedule[index];
+						// var startTime = brand.get("StartTime");
+						// var endTime = brand.get("EndTime");
+						// // startTime.setHours(startTime.getHours());
+						// // endTime.setHours(endTime.getHours());
+						// console.log("starttime is " + startTime + " name is " + brand.get("Brand"));
+					// }
     				},
     				error: function(){
     					console.log("getSchedule1 error");
