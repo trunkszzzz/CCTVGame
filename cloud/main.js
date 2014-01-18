@@ -154,11 +154,11 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 	console.log("testCommitAnswer's request is ", request);
 	var selectBrand = request.params["select"];
 	console.log("request is ", selectBrand);
-	console.log("testCommitAnswer's success find", gAllSchedule);
 	var nowTime = new Date();	
 	var nowHours = nowTime.getHours();
 	var nowMinutes = nowTime.getMinutes();
 	var nowSeconds = nowTime.getSeconds();
+	console.log("testCommitAnswer's success find", gAllSchedule," time is " + nowTime);
 	for (var index = 0; index < gAllSchedule.length; index++){
 		var brand = gAllSchedule[index];
 		// console.log("i'm finding ", brand);
