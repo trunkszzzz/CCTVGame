@@ -371,7 +371,20 @@ AV.Cloud.define("testAdjustTime", function(request, response){
 						// startTime.setHours(startTime.getHours());
 						// endTime.setHours(endTime.getHours());
 					}
-					response.success("testAdjustTime OK");
+					var queryUser = new AV.Query("_User");
+					queryUser.find({
+				    		success: function(queryUserResults){
+							for (var index = 0; index < queryUserResults.length; index++){
+								var userData = queryUserResults[index];
+								userData.set("FinishedItem", null);
+								userData.save();
+							}
+							response.success("testAdjustTime OK");
+				    		},
+				    		error: function(){
+							console.log("User get error");
+						}
+				   });
     				},
     				error: function(){
     					console.log("getSchedule1 error");
