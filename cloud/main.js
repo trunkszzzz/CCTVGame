@@ -314,6 +314,8 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 							}
 						}
 					}
+					console.log("find error");
+					response.error("find error");
     				},
     				error: function(){
     					response.error("getSchedule1 error");
