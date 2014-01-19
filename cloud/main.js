@@ -150,9 +150,11 @@ AV.Cloud.define("getRanking", function(request, response){
 						ret[ud.get("Nickname")] = ud.get("TotalScore");
 					}
 					response.success(ret);
-					break;
+					return;
 				}
 			}
+			console.log("getRanking1 error");
+			response.error("getRanking1 error");
     		},
     		error: function(){
 			console.log("getRanking error");
