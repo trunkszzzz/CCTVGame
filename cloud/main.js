@@ -362,9 +362,9 @@ AV.Cloud.define("testAdjustTime", function(request, response){
 						var startTime = brand.get("StartTime");
 						var endTime = brand.get("EndTime");
 						startTime.setHours(nowTime.getHours());
-						startTime.setMinutes(nowTime.getMinutes()+1);
+						startTime.setMinutes(nowTime.getMinutes()+3);
 						endTime.setHours(nowTime.getHours());
-						endTime.setMinutes(nowTime.getMinutes()+1);
+						endTime.setMinutes(nowTime.getMinutes()+3);
 						brand.set("StartTime", startTime);
 						brand.set("EndTime", endTime);
 						brand.save();
