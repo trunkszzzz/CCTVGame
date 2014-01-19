@@ -316,6 +316,7 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 					}
 					console.log("find error");
 					response.error("find error");
+					return;
     				},
     				error: function(){
     					response.error("getSchedule1 error");
@@ -342,6 +343,44 @@ AV.Cloud.define("testHttp", function(request, response){
 	console.log("testHttp's request is ", request);
 	console.log("test gAllSchedule in testHttp", gAllSchedule);
 	response.success(gAllSchedule);
+});    
+
+AV.Cloud.define("testAdjustTime", function(request, response){
+	var nowTime = new Date();
+	console.log("testAdjustTime", nowTime);
+    var query = new AV.Query("Config");
+    query.equalTo("Key", "ScheduleId");
+    query.find({
+    		success: function(results){
+    			var o = results[0];
+    			var sid = o.get("Content");
+    			var query = new AV.Query(sid);
+    			query.find({
+    				success: function(results){
+    					for (var index = 0; index < results.length; index++){
+    						var brand = results[index];
+						var startTime = brand.get("StartTime");
+						var endTime = brand.get("EndTime");
+						startTime.setHours(nowTime.getHours());
+						startTime.setMinute(nowTime.getMinutes()+1);
+						endTime.setHours(nowTime.getHours());
+						endTime.setMinute(nowTime.getMinutes()+1);
+						brand.set("StartTime", startTime);
+						brand.set("EndTime", endTime);
+						brand.save();
+						// startTime.setHours(startTime.getHours());
+						// endTime.setHours(endTime.getHours());
+					}
+    				},
+    				error: function(){
+    					console.log("getSchedule1 error");
+    				}
+    			});
+    		},
+    		error: function(){
+    			console.log("getSchedule2 error");
+    		}
+    });
 });    
 
 AV.Cloud.cronJob("Clear_Timer", "0 0 0 * * ?", function(){
