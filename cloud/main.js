@@ -371,6 +371,7 @@ AV.Cloud.define("testAdjustTime", function(request, response){
 						// startTime.setHours(startTime.getHours());
 						// endTime.setHours(endTime.getHours());
 					}
+					response.success("testAdjustTime OK");
     				},
     				error: function(){
     					console.log("getSchedule1 error");
