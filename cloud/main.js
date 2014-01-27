@@ -274,6 +274,8 @@ AV.Cloud.define("exchangePrize", function(request, response){
 						theUser.set("TotalScore", userPoint);
 						theUser.save();
 						leftNum = leftNum - 1;
+						prize.set("LeftNum", leftNum);
+						prize.save();
 						var guidStr = NewGuid();
 						response.success(guidStr);
 						return;
