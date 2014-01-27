@@ -287,7 +287,8 @@ AV.Cloud.define("exchangePrize", function(request, response){
 						    // Execute any logic that should take place after the object is saved.
 						    // alert('New object created with objectId: ' + gameScore.id);
 						    console.log("exchangePrize Success");
-						    response.success(guidStr);
+						    var retObj = {"guid" : guidStr, "level" : prizeLevel, "index" : prizeIndex, "left" : leftNum};
+						    response.success(retObj);
 						    return;
 						  },
 						  error: function(epr, error) {
