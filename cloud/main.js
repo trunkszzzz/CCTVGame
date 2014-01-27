@@ -285,10 +285,10 @@ AV.Cloud.define("exchangePrize", function(request, response){
 						exchangePoint += needPoint;
 						theUser.set("TotalScore", userPoint);
 						theUser.set("TotalExchangePoint", exchangePoint);
-						// theUser.save();
+						theUser.save();
 						leftNum = leftNum - 1;
 						prize.set("LeftNum", leftNum);
-						// prize.save();
+						prize.save();
 						var guidStr = NewGuid();
 						var ExchangePrizeRecord = AV.Object.extend("ExchangePrizeRecord");
 						var epr = new ExchangePrizeRecord();
@@ -300,8 +300,8 @@ AV.Cloud.define("exchangePrize", function(request, response){
 						    // Execute any logic that should take place after the object is saved.
 						    // alert('New object created with objectId: ' + gameScore.id);
 						    console.log("exchangePrize Success");
-						    theUser.save();
-						    prize.save();
+						    // theUser.save();
+						    // prize.save();
 						    var retObj = {"guid" : guidStr, "level" : prizeLevel, "index" : prizeIndex, "left" : leftNum, "total" : userPoint, "exchange" : exchangePoint};
 						    response.success(retObj);
 						    return;
