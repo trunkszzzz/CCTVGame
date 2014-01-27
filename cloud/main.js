@@ -283,16 +283,16 @@ AV.Cloud.define("exchangePrize", function(request, response){
 						epr.set("PrizeLevel", prizeLevel);
 						epr.set("PrizeIndex", prizeIndex);
 						epr.save(null, {
-						  success: function(result) {
+						  success: function(epr) {
 						    // Execute any logic that should take place after the object is saved.
 						    // alert('New object created with objectId: ' + gameScore.id);
 						    console.log("exchangePrize Success");
 						    response.success(guidStr);
 						    return;
 						  },
-						  error: function(result, error) {
-						  	response.error("ExchangePrizeRecord save error");
-    							console.log("ExchangePrizeRecord save error");
+						  error: function(epr, error) {
+						  	response.error("ExchangePrizeRecord save error ", error.description);
+    							console.log("ExchangePrizeRecord save error", error.description);
     							return;
 						    // Execute any logic that should take place if the save fails.
 						    // error is a AV.Error with an error code and description.
