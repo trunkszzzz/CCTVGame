@@ -250,8 +250,10 @@ AV.Cloud.define("getRanking", function(request, response){
 AV.Cloud.define("exchangePrize", function(request, response){
 	console.log("exchangePrize's request is ", request);
 	var theUser = request.user;
+	console.log("get prize before ", request.param);
 	var prizeLevel = request.param["prize_level"];
 	var prizeIndex = request.param["prize_index"];
+	console.log("get prize end");
 	var query = new AV.Query("PrizeData");
 	query.find({
 		success: function(results){
