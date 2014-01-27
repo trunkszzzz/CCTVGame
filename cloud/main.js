@@ -265,6 +265,10 @@ AV.Cloud.define("exchangePrize", function(request, response){
 						var needPoint = prize.get("NeedPoint");
 						var userPoint = theUser.get("TotalScore");
 						var exchangePoint = theUser.get("TotalExchangePoint");
+						if (exchangePoint == null)
+						{
+							exchangePoint = 0;
+						}
 						if (userPoint < needPoint)
 						{
 							response.error("not enough point");
