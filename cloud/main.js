@@ -264,6 +264,7 @@ AV.Cloud.define("exchangePrize", function(request, response){
 						var leftNum = prize.get("LeftNum");
 						var needPoint = prize.get("NeedPoint");
 						var userPoint = theUser.get("TotalScore");
+						var exchangePoint = theUser.get("TotalExchangePoint");
 						if (userPoint < needPoint)
 						{
 							response.error("not enough point");
@@ -277,11 +278,13 @@ AV.Cloud.define("exchangePrize", function(request, response){
 							return;
 						}
 						userPoint -= needPoint;
+						exchangePoint += needPoint;
 						theUser.set("TotalScore", userPoint);
-						theUser.save();
+						theUser.set("TotalExchangePoint", exchangePoint);
+						// theUser.save();
 						leftNum = leftNum - 1;
 						prize.set("LeftNum", leftNum);
-						prize.save();
+						// prize.save();
 						var guidStr = NewGuid();
 						var ExchangePrizeRecord = AV.Object.extend("ExchangePrizeRecord");
 						var epr = new ExchangePrizeRecord();
@@ -293,7 +296,9 @@ AV.Cloud.define("exchangePrize", function(request, response){
 						    // Execute any logic that should take place after the object is saved.
 						    // alert('New object created with objectId: ' + gameScore.id);
 						    console.log("exchangePrize Success");
-						    var retObj = {"guid" : guidStr, "level" : prizeLevel, "index" : prizeIndex, "left" : leftNum};
+						    theUser.save();
+						    prize.save();
+						    var retObj = {"guid" : guidStr, "level" : prizeLevel, "index" : prizeIndex, "left" : leftNum, "total" : userPoint, "exchange" : exchangePoint};
 						    response.success(retObj);
 						    return;
 						  },
