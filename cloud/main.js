@@ -277,8 +277,28 @@ AV.Cloud.define("exchangePrize", function(request, response){
 						prize.set("LeftNum", leftNum);
 						prize.save();
 						var guidStr = NewGuid();
-						response.success(guidStr);
-						return;
+						var ExchangePrizeRecord = AV.Object.extend("ExchangePrizeRecord");
+						var epr = new ExchangePrizeRecord();
+						epr.set("UserName", theUser.get("username"));
+						epr.set("PrizeLevel", prizeLevel);
+						epr.set("PrizeIndex", prizeIndex);
+						epr.save(null, {
+						  success: function(result) {
+						    // Execute any logic that should take place after the object is saved.
+						    // alert('New object created with objectId: ' + gameScore.id);
+						    console.log("exchangePrize Success");
+						    response.success(guidStr);
+						    return;
+						  },
+						  error: function(result, error) {
+						  	response.error("ExchangePrizeRecord save error");
+    							console.log("ExchangePrizeRecord save error");
+    							return;
+						    // Execute any logic that should take place if the save fails.
+						    // error is a AV.Error with an error code and description.
+						    // alert('Failed to create new object, with error code: ' + error.description);
+						  }
+						});
 					}
 				}
 			}
