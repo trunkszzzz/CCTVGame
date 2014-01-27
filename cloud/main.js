@@ -4,6 +4,16 @@
 
 var gNowSchedule;
 
+function S4() 
+{   
+   return (((1+Math.random())*0x10000)|0).toString(16).substring(1);   
+}    
+
+function NewGuid() 
+{   
+   return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());   
+}
+
 function getAllSchedule()
 {
 	console.log("getAllSchedule!!!!!!!!!!!!!!!!!!!!!!", new Date());
@@ -236,6 +246,44 @@ AV.Cloud.define("getRanking", function(request, response){
 	// console.log("啥也找不到的节奏！！！！！！！！");
 	// response.error("testCommitAnswer error");
 // }); 
+
+AV.Cloud.define("exchangePrize", function(request, response){
+	console.log("exchangePrize's request is ", request);
+	var theUser = request.user;
+	var prizeLevel = request.param["prize_level"];
+	var prizeIndex = request.param["prize_index"];
+	var query = new AV.Query("PrizeData");
+	query.find({
+		success: function(results){
+			for (var index = 0; index < results.length; index++){
+				var prize = results[index];
+				if (prize.get("Index") == prizeIndex){
+					if (prize.get("Level") == prizeLevel){
+						var leftNum = prize.get("LeftNum");
+						var userPoint = theUser.get("TotalScore");
+						if (userPoint < leftNum)
+						{
+							response.error("not enough point");
+							console.log("not enough point");
+							return;
+						}
+						userPoint -= leftNum;
+						theUser.set("TotalScore", userPoint);
+						theUser.save();
+						leftNum = leftNum - 1;
+						var guidStr = NewGuid();
+						response.success(guidStr);
+						return;
+					}
+				}
+			}
+		},
+		error: function(){
+			response.error("exchangePrize error");
+    			console.log("exchangePrize error");
+		}
+	});
+});
 
 AV.Cloud.define("testCommitAnswer", function(request, response){
 	console.log("testCommitAnswer's request is ", request);
