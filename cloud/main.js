@@ -270,6 +270,12 @@ AV.Cloud.define("exchangePrize", function(request, response){
 							console.log("not enough point");
 							return;
 						}
+						if (leftNum <= 0)
+						{
+							response.error("not enough prize");
+							console.log("not enough prize");
+							return;
+						}
 						userPoint -= needPoint;
 						theUser.set("TotalScore", userPoint);
 						theUser.save();
