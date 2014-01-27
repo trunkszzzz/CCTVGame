@@ -262,14 +262,15 @@ AV.Cloud.define("exchangePrize", function(request, response){
 				if (prize.get("Index") == prizeIndex){
 					if (prize.get("Level") == prizeLevel){
 						var leftNum = prize.get("LeftNum");
+						var needPoint = prize.get("NeedPoint");
 						var userPoint = theUser.get("TotalScore");
-						if (userPoint < leftNum)
+						if (userPoint < needPoint)
 						{
 							response.error("not enough point");
 							console.log("not enough point");
 							return;
 						}
-						userPoint -= leftNum;
+						userPoint -= needPoint;
 						theUser.set("TotalScore", userPoint);
 						theUser.save();
 						leftNum = leftNum - 1;
