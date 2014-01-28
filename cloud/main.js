@@ -295,6 +295,7 @@ AV.Cloud.define("exchangePrize", function(request, response){
 						epr.set("UserName", theUser.get("username"));
 						epr.set("PrizeLevel", prizeLevel);
 						epr.set("PrizeIndex", prizeIndex);
+						epr.set("ExchangeID", guidStr);
 						epr.save(null, {
 						  success: function(epr) {
 						    // Execute any logic that should take place after the object is saved.
