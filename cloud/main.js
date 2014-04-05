@@ -140,7 +140,7 @@ AV.Cloud.define("getRanking", function(request, response){
 	query.descending("TotalScore");
 	query.find({
     		success: function(results){
-    			console.log("getRanking !!!! length is ", results.length);
+    			console.log("getRanking bbb length is ", results.length);
 			for (var index = 0; index < results.length; index++){
 				var userData = results[index];
 				if (userData.get("username") == theUser.get("username")){
