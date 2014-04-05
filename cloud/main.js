@@ -135,14 +135,13 @@ AV.Cloud.define("getTopRanking", function(request, response){
    
 AV.Cloud.define("getRanking", function(request, response){
 	var theUser = request.user;
-	console.log("getRanking User is ", theUser);
 	var query = new AV.Query("_User");
 	query.descending("TotalScore");
 	query.find({
     		success: function(results){
+    			console.log("getRanking !!!! length is ", results.length);
 			for (var index = 0; index < results.length; index++){
 				var userData = results[index];
-				console.log("uu name is ", userData.get("username"), "u name is ", theUser.get("username"));
 				if (userData.get("username") == theUser.get("username")){
 					var ret = {};
 					for (var index1 = 0; index1 < 6; index1++){
