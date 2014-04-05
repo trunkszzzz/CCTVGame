@@ -136,6 +136,7 @@ AV.Cloud.define("getTopRanking", function(request, response){
 AV.Cloud.define("getRanking", function(request, response){
 	var theUser = request.user;
 	var query = new AV.Query("_User");
+	query.limit(1000);
 	query.descending("TotalScore");
 	query.find({
     		success: function(results){
