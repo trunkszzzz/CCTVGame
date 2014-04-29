@@ -168,7 +168,7 @@ AV.Cloud.define("getRanking", function(request, response){
 					}
 					var subRet = {};
 					subRet["TotalScore"] = userData.get("TotalScore");
-					subRet["SelfRanking"] = i+1;
+					subRet["SelfRanking"] = index+1;
 					ret[userData.get("username")] = subRet;
 					response.success(ret);
 					return;
