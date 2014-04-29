@@ -150,15 +150,25 @@ AV.Cloud.define("getRanking", function(request, response){
 						if (i < 0 || i >= results.length)
 							continue;
 						var ud = results[i];
-						ret[ud.get("Nickname")] = ud.get("TotalScore");
+						var subRet = {};
+						subRet["TotalScore"] = ud.get("TotalScore");
+						subRet["SelfRanking"] = i+1;
+						ret[ud.get("Nickname")] = subRet;
 					}
 					for (var index1 = 1; index1 < 6; index1++){
 						var i = index - index1;
 						if (i < 0 || i >= results.length)
 							continue;
 						var ud = results[i];
-						ret[ud.get("Nickname")] = ud.get("TotalScore");
+						var subRet = {};
+						subRet["TotalScore"] = ud.get("TotalScore");
+						subRet["SelfRanking"] = i+1;
+						ret[ud.get("Nickname")] = subRet;
 					}
+					var subRet = {};
+					subRet["TotalScore"] = userData.get("TotalScore");
+					subRet["SelfRanking"] = i+1;
+					ret[userData.get("username")] = subRet;
 					response.success(ret);
 					return;
 				}
