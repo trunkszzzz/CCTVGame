@@ -408,15 +408,15 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 										continue;
 									}
 									console.log("testCommitAnswer's user is ", theUser);
-									var s = theUser.get("TotalScore");
-									var tts = theUser.get("TodayScore");
-									if (s == null)
+									var s = 0;
+									var tts = 0;
+									if (theUser.has("TotalScore"))
 									{
-										s = 0;
+										s = theUser.get("TotalScore");
 									}
-									if (tts == null)
+									if (theUser.has("TodayScore"))
 									{
-										tts = 0;
+										tts = theUser.get("TodayScore");
 									}
 									s += 1;
 									tts += 1;
