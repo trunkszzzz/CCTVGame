@@ -143,7 +143,7 @@ AV.Cloud.define("getRanking", function(request, response){
     			
 			for (var index = 0; index < results.length; index++){
 				var userData = results[index];
-				console.log("userdata is ", userData.get("username"), "theuser is ", theUser.get("username"));
+				//console.log("userdata is ", userData.get("username"), "theuser is ", theUser.get("username"));
 				if (userData.get("username") == theUser.get("username")){
 					var ret = {};
 					for (var index1 = 0; index1 < 6; index1++){
@@ -311,10 +311,38 @@ AV.Cloud.define("exchangePrize", function(request, response){
 						exchangePoint += needPoint;
 						theUser.set("TotalScore", userPoint);
 						theUser.set("TotalExchangePoint", exchangePoint);
-						theUser.save();
+						theUser.save(null, {
+									  success: function(epr) {
+									    // Execute any logic that should take place after the object is saved.
+									    console.log("theUser.save");
+									    return;
+									  },
+									  error: function(epr, error) {
+									  	response.error("theUser.save error ", error.description);
+			    							console.log("theUser.save error", error.description);
+			    							return;
+									    // Execute any logic that should take place if the save fails.
+									    // error is a AV.Error with an error code and description.
+									    // alert('Failed to create new object, with error code: ' + error.description);
+									  }
+									});
 						leftNum = leftNum - 1;
 						prize.set("LeftNum", leftNum);
-						prize.save();
+						prize.save(null, {
+									  success: function(epr) {
+									    // Execute any logic that should take place after the object is saved.
+									    console.log("prize.save");
+									    return;
+									  },
+									  error: function(epr, error) {
+									  	response.error("prize.save error ", error.description);
+			    							console.log("prize.save error", error.description);
+			    							return;
+									    // Execute any logic that should take place if the save fails.
+									    // error is a AV.Error with an error code and description.
+									    // alert('Failed to create new object, with error code: ' + error.description);
+									  }
+									});
 						var guidStr = NewGuid();
 						var ExchangePrizeRecord = AV.Object.extend("ExchangePrizeRecord");
 						var epr = new ExchangePrizeRecord();
@@ -424,7 +452,21 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 									theUser.set("TodayScore", tts);
 									finishedItem.push(times);
 									theUser.set("FinishedItem", finishedItem);
-									theUser.save();
+									theUser.save(null, {
+									  success: function(epr) {
+									    // Execute any logic that should take place after the object is saved.
+									    console.log("theUser.save Success");
+									    return;
+									  },
+									  error: function(epr, error) {
+									  	response.error("theUser.save error ", error.description);
+			    							console.log("theUser.save error", error.description);
+			    							return;
+									    // Execute any logic that should take place if the save fails.
+									    // error is a AV.Error with an error code and description.
+									    // alert('Failed to create new object, with error code: ' + error.description);
+									  }
+									});
 									console.log("current score is ", s);
 									response.success("you selected ", brandName);
 									return;
@@ -485,7 +527,21 @@ AV.Cloud.define("testAdjustTime", function(request, response){
 						endTime.setMinutes(nowTime.getMinutes()+1);
 						brand.set("StartTime", startTime);
 						brand.set("EndTime", endTime);
-						brand.save();
+						brand.save(null, {
+									  success: function(epr) {
+									    // Execute any logic that should take place after the object is saved.
+									    console.log("brand.save");
+									    return;
+									  },
+									  error: function(epr, error) {
+									  	response.error("brand.save error ", error.description);
+			    							console.log("brand.save error", error.description);
+			    							return;
+									    // Execute any logic that should take place if the save fails.
+									    // error is a AV.Error with an error code and description.
+									    // alert('Failed to create new object, with error code: ' + error.description);
+									  }
+									});
 						// startTime.setHours(startTime.getHours());
 						// endTime.setHours(endTime.getHours());
 					}
@@ -495,7 +551,24 @@ AV.Cloud.define("testAdjustTime", function(request, response){
 							for (var index = 0; index < queryUserResults.length; index++){
 								var userData = queryUserResults[index];
 								userData.set("FinishedItem", null);
-								userData.save();
+								userData.save(null, {
+						  success: function(epr) {
+						    // Execute any logic that should take place after the object is saved.
+						    // alert('New object created with objectId: ' + gameScore.id);
+						    console.log("userData.save Success");
+						    // theUser.save();
+						    // prize.save();
+						    return;
+						  },
+						  error: function(epr, error) {
+						  	response.error("userData.save error ", error.description);
+    							console.log("userData.save error", error.description);
+    							return;
+						    // Execute any logic that should take place if the save fails.
+						    // error is a AV.Error with an error code and description.
+						    // alert('Failed to create new object, with error code: ' + error.description);
+						  }
+						});
 							}
 							response.success("testAdjustTime OK");
 				    		},
@@ -525,7 +598,21 @@ AV.Cloud.cronJob("Clear_Timer", "0 0 0 * * ?", function(){
 				var userData = results[index];
 				userData.set("FinishedItem", null);
 				userData.set("TodayScore", 0);
-				userData.save();
+				userData.save(null, {
+									  success: function(epr) {
+									    // Execute any logic that should take place after the object is saved.
+									    console.log("userData.save");
+									    return;
+									  },
+									  error: function(epr, error) {
+									  	response.error("userData.save error ", error.description);
+			    							console.log("userData.save error", error.description);
+			    							return;
+									    // Execute any logic that should take place if the save fails.
+									    // error is a AV.Error with an error code and description.
+									    // alert('Failed to create new object, with error code: ' + error.description);
+									  }
+									});
 			}
     		},
     		error: function(){
