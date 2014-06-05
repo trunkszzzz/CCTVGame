@@ -415,6 +415,7 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 						// console.log("nowTime is ", nowTime);
 						if (nowTime - startTime > 0){
 							if (nowTime - endTime < 0){
+								console.log("time match! ", brandName);
 								if (selectBrand == brandName){
 									console.log("now is in ", brandName);
 									var theUser = request.user;
