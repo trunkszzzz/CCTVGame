@@ -395,7 +395,7 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
     			var query = new AV.Query(sid);
     			query.find({
     				success: function(results){
-    					console.log("testCommitAnswer's success find", results);
+    					console.log("testCommitAnswer's success find", results.length);
 					var nowTime = new Date();	
 					var nowHours = nowTime.getHours();
 					var nowMinutes = nowTime.getMinutes();
