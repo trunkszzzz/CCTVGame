@@ -397,6 +397,7 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
     				success: function(results){
     					console.log("testCommitAnswer's success find", results.length);
 					var nowTime = new Date();	
+					nowTime.setHours(nowTime.getHours()+8);
 					var nowHours = nowTime.getHours();
 					var nowMinutes = nowTime.getMinutes();
 					var nowSeconds = nowTime.getSeconds();
@@ -409,8 +410,7 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 						nowTime.setYear(1900+startTime.getYear());
 						nowTime.setMonth(startTime.getMonth());
 						nowTime.setDate(startTime.getDate());
-						nowTime.setHours(nowTime.getHours()+8);
-						// console.log("brandName is ", brandName, "startTime is ", startTime, "endTime is ", endTime, "nowTime is ", nowTime);
+						console.log("brandName is ", brandName, "startTime is ", startTime, "endTime is ", endTime, "nowTime is ", nowTime);
 						// console.log("startTime is ", startTime);
 						// console.log("endTime is ", endTime);
 						// console.log("nowTime is ", nowTime);
