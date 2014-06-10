@@ -411,7 +411,7 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 						nowTime.setYear(1900+startTime.getYear());
 						nowTime.setMonth(startTime.getMonth());
 						nowTime.setDate(startTime.getDate());
-						// console.log("brandName is ", brandName, "startTime is ", startTime, "endTime is ", endTime, "nowTime is ", nowTime);
+						console.log("brandName is ", brandName, "startTime is ", startTime, "endTime is ", endTime, "nowTime is ", nowTime);
 						// console.log("startTime is ", startTime);
 						// console.log("endTime is ", endTime);
 						// console.log("nowTime is ", nowTime);
