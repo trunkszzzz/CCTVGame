@@ -388,6 +388,7 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 	console.log("request is ", selectBrand);
 	console.log("getSchedule success! ", sid);
 	var query = new AV.Query(sid);
+	query.limit = 1000;
 	query.find({
 		success: function(results){
 			// console.log("testCommitAnswer's success find", results.length);
