@@ -384,114 +384,103 @@ AV.Cloud.define("exchangePrize", function(request, response){
 AV.Cloud.define("testCommitAnswer", function(request, response){
 	console.log("testCommitAnswer's request is ", request);
 	var selectBrand = request.params["select"];
+	var sid = request.params["schedule"];
 	console.log("request is ", selectBrand);
-    var query = new AV.Query("Config");
-    query.equalTo("Key", "ScheduleId");
-    query.find({
-    		success: function(results){
-    			var o = results[0];
-    			var sid = o.get("Content");
-    			console.log("getSchedule success! ", sid);
-    			var query = new AV.Query(sid);
-    			query.find({
-    				success: function(results){
-    					// console.log("testCommitAnswer's success find", results.length);
-					var nowTime = new Date();	
-					nowTime.setHours(nowTime.getHours()+8);
-					console.log("testCommitAnswer's success find", nowTime);
-					var nowHours = nowTime.getHours();
-					var nowMinutes = nowTime.getMinutes();
-					var nowSeconds = nowTime.getSeconds();
-					for (var index = 0; index < results.length; index++){
-						var brand = results[index];
-						var brandName = brand.get("Brand");
-						var startTime = brand.get("StartTime");
-						var endTime = brand.get("EndTime");
-						var times = brand.get("Times");
-						nowTime.setYear(1900+startTime.getYear());
-						nowTime.setMonth(startTime.getMonth());
-						nowTime.setDate(startTime.getDate());
-						console.log("brandName is ", brandName, "startTime is ", startTime, "endTime is ", endTime, "nowTime is ", nowTime);
-						// console.log("startTime is ", startTime);
-						// console.log("endTime is ", endTime);
-						// console.log("nowTime is ", nowTime);
-						if (nowTime - startTime > 0){
-							if (nowTime - endTime < 0){
-								console.log("time match! ", brandName);
-								if (selectBrand == brandName){
-									console.log("now is in ", brandName);
-									var theUser = request.user;
-									var finishedItem = theUser.get("FinishedItem");
-									if (finishedItem == null){
-										console.log("finishedItem = new Array()");
-										finishedItem = new Array();
-									}
-									var found = false;
-									for (var index1 = 0; index1 < finishedItem.length; index1++){
-										var finished = finishedItem[index1];
-										if (finished == times){
-											console.log("FOUND@@@!!!!!!!!!!!");
-											found = true;
-											break;
-										}
-									}
-									if (found){
-										continue;
-									}
-									console.log("testCommitAnswer's user is ", theUser);
-									var s = 0;
-									var tts = 0;
-									if (theUser.has("TotalScore"))
-									{
-										s = theUser.get("TotalScore");
-									}
-									if (theUser.has("TodayScore"))
-									{
-										tts = theUser.get("TodayScore");
-									}
-									s += 1;
-									tts += 1;
-									theUser.set("TotalScore", s);
-									theUser.set("TodayScore", tts);
-									finishedItem.push(times);
-									theUser.set("FinishedItem", finishedItem);
-									theUser.save(null, {
-									  success: function(epr) {
-									    // Execute any logic that should take place after the object is saved.
-									    console.log("theUser.save Success");
-									    return;
-									  },
-									  error: function(epr, error) {
-									  	response.error("theUser.save error ", error.description);
-			    							console.log("theUser.save error", error.description);
-			    							return;
-									    // Execute any logic that should take place if the save fails.
-									    // error is a AV.Error with an error code and description.
-									    // alert('Failed to create new object, with error code: ' + error.description);
-									  }
-									});
-									console.log("current score is ", s);
-									response.success("you selected ", brandName);
-									return;
-								}
+	console.log("getSchedule success! ", sid);
+	var query = new AV.Query(sid);
+	query.find({
+		success: function(results){
+			// console.log("testCommitAnswer's success find", results.length);
+		var nowTime = new Date();	
+		nowTime.setHours(nowTime.getHours()+8);
+		console.log("testCommitAnswer's success find", nowTime);
+		var nowHours = nowTime.getHours();
+		var nowMinutes = nowTime.getMinutes();
+		var nowSeconds = nowTime.getSeconds();
+		for (var index = 0; index < results.length; index++){
+			var brand = results[index];
+			var brandName = brand.get("Brand");
+			var startTime = brand.get("StartTime");
+			var endTime = brand.get("EndTime");
+			var times = brand.get("Times");
+			nowTime.setYear(1900+startTime.getYear());
+			nowTime.setMonth(startTime.getMonth());
+			nowTime.setDate(startTime.getDate());
+			console.log("brandName is ", brandName, "startTime is ", startTime, "endTime is ", endTime, "nowTime is ", nowTime);
+			// console.log("startTime is ", startTime);
+			// console.log("endTime is ", endTime);
+			// console.log("nowTime is ", nowTime);
+			if (nowTime - startTime > 0){
+				if (nowTime - endTime < 0){
+					console.log("time match! ", brandName);
+					if (selectBrand == brandName){
+						console.log("now is in ", brandName);
+						var theUser = request.user;
+						var finishedItem = theUser.get("FinishedItem");
+						if (finishedItem == null){
+							console.log("finishedItem = new Array()");
+							finishedItem = new Array();
+						}
+						var found = false;
+						for (var index1 = 0; index1 < finishedItem.length; index1++){
+							var finished = finishedItem[index1];
+							if (finished == times){
+								console.log("FOUND@@@!!!!!!!!!!!");
+								found = true;
+								break;
 							}
 						}
+						if (found){
+							continue;
+						}
+						console.log("testCommitAnswer's user is ", theUser);
+						var s = 0;
+						var tts = 0;
+						if (theUser.has("TotalScore"))
+						{
+							s = theUser.get("TotalScore");
+						}
+						if (theUser.has("TodayScore"))
+						{
+							tts = theUser.get("TodayScore");
+						}
+						s += 1;
+						tts += 1;
+						theUser.set("TotalScore", s);
+						theUser.set("TodayScore", tts);
+						finishedItem.push(times);
+						theUser.set("FinishedItem", finishedItem);
+						theUser.save(null, {
+						  success: function(epr) {
+						    // Execute any logic that should take place after the object is saved.
+						    console.log("theUser.save Success");
+						    return;
+						  },
+						  error: function(epr, error) {
+						  	response.error("theUser.save error ", error.description);
+    							console.log("theUser.save error", error.description);
+    							return;
+						    // Execute any logic that should take place if the save fails.
+						    // error is a AV.Error with an error code and description.
+						    // alert('Failed to create new object, with error code: ' + error.description);
+						  }
+						});
+						console.log("current score is ", s);
+						response.success("you selected ", brandName);
+						return;
 					}
-					console.log("find error");
-					response.error("find error");
-					return;
-    				},
-    				error: function(){
-    					response.error("getSchedule1 error");
-    					console.log("getSchedule1 error");
-    				}
-    			});
-    		},
-    		error: function(){
-    			response.error("getSchedule2 error");
-    			console.log("getSchedule2 error");
-    		}
-    });
+				}
+			}
+		}
+		console.log("find error");
+		response.error("find error");
+		return;
+		},
+		error: function(){
+			response.error("getSchedule1 error");
+			console.log("getSchedule1 error");
+		}
+	});
 }); 
 
 AV.Cloud.define("syncTime", function(request, response){
