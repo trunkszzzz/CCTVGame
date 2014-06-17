@@ -153,8 +153,8 @@ AV.Cloud.define("getRanking", function(request, response){
 						var ud = results[i];
 						var subRet = {};
 						subRet["SelfRanking"] = i+1;
-						if (userData.has("TotalScore")){
-							subRet["TotalScore"] = userData.get("TotalScore");
+						if (ud.has("TotalScore")){
+							subRet["TotalScore"] = ud.get("TotalScore");
 						}
 						else{
 							subRet["TotalScore"] = 0;
@@ -168,8 +168,8 @@ AV.Cloud.define("getRanking", function(request, response){
 						var ud = results[i];
 						var subRet = {};
 						subRet["SelfRanking"] = i+1;
-						if (userData.has("TotalScore")){
-							subRet["TotalScore"] = userData.get("TotalScore");
+						if (ud.has("TotalScore")){
+							subRet["TotalScore"] = ud.get("TotalScore");
 						}
 						else{
 							subRet["TotalScore"] = 0;
