@@ -111,6 +111,7 @@ AV.Cloud.define("getTopRanking", function(request, response){
 	var theUser = request.user;
 	var query = new AV.Query("_User");
 	query.descending("TodayScore");
+	query.limit(1000);
 	query.find({
     		success: function(results){
     			console.log("User is ", results);
@@ -184,7 +185,7 @@ AV.Cloud.define("getRanking", function(request, response){
 						subRet["TotalScore"] = 0;
 					}
 					subRet["SelfRanking"] = index+1;
-					ret[userData.get("username")] = subRet;
+					ret[userData.get("Nickname")] = subRet;
 					response.success(ret);
 					return;
 				}
