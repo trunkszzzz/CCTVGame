@@ -584,6 +584,7 @@ AV.Cloud.define("testAdjustTime", function(request, response){
 
 AV.Cloud.cronJob("Clear_Timer", "0 0 0 * * ?", function(){
 	var query = new AV.Query("_User");
+	query.limit(1000);
 	query.find({
     		success: function(results){
     			console.log("User is ", results);
