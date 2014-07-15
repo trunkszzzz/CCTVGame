@@ -110,7 +110,7 @@ AV.Cloud.define("commitAnswer", function(request, response){
 AV.Cloud.define("getTopRanking", function(request, response){
 	var theUser = request.user;
 	var query = new AV.Query("_User");
-	query.descending("TodayScore");
+	query.descending("YesterdayScore");
 	query.limit(1000);
 	query.find({
     		success: function(results){
@@ -122,7 +122,7 @@ AV.Cloud.define("getTopRanking", function(request, response){
 				if (top <= 0)
 					break;
 				var userData = results[index];
-				ret[userData.get("Nickname")] = userData.get("TodayScore");
+				ret[userData.get("Nickname")] = userData.get("YesterdayScore");
 				top--;
 			}
 			response.success(ret);
@@ -592,6 +592,8 @@ AV.Cloud.cronJob("Clear_Timer", "0 0 0 * * ?", function(){
 			for (var index = 0; index < results.length; index++){
 				var userData = results[index];
 				userData.set("FinishedItem", null);
+				var ts = userData.get("TodayScore");
+				userData.set("YesterdayScore", ts);
 				userData.set("TodayScore", 0);
 				userData.save(null, {
 									  success: function(epr) {
