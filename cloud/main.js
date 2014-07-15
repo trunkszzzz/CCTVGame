@@ -125,6 +125,7 @@ AV.Cloud.define("getTopRanking", function(request, response){
 				ret[userData.get("Nickname")] = userData.get("YesterdayScore");
 				top--;
 			}
+			
 			response.success(ret);
     		},
     		error: function(){
