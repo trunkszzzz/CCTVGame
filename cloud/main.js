@@ -13,7 +13,7 @@ function S4()
 function NewGuid() 
 {   
    // return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
-   return S4();   
+   return S4()+S4();   
 }
 
 function getAllSchedule()
