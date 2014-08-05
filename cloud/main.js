@@ -6,12 +6,14 @@ var gNowSchedule;
 
 function S4() 
 {   
-   return (((1+Math.random())*0x10000)|0).toString(16).substring(1);   
+   // return (((1+Math.random())*0x10000)|0).toString(16).substring(1);  
+   return (((1+Math.random())*0x10000)|0).toString(8).substring(1);    
 }    
 
 function NewGuid() 
 {   
-   return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());   
+   // return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+   return S4();   
 }
 
 function getAllSchedule()
