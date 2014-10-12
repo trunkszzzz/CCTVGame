@@ -301,6 +301,7 @@ AV.Cloud.define("exchangePrize", function(request, response){
 					    // theUser.save();
 					    // prize.save();
 					    var exchangeRecordRet = {"code" : guidStr, "id" : prizeId};
+					    exchangeRecord.push(exchangeRecordRet);
 					    var retObj = {"record" : exchangeRecordRet, "id" : prizeId, "guid" : guidStr, "level" : prizeLevel, "index" : prizeIndex, "left" : coupons.length, "total" : userPoint, "exchange" : exchangePoint};
 					    response.success(retObj);
 					    return;
