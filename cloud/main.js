@@ -209,98 +209,111 @@ AV.Cloud.define("exchangePrize", function(request, response){
 	console.log("get prize before ", request.params);
 	var prizeLevel = request.params["prize_level"];
 	var prizeIndex = request.params["prize_index"];
+	var prizeId = request.params["prize_id"];
 	console.log("get prize end");
 	var query = new AV.Query("PrizeData");
 	query.find({
 		success: function(results){
 			for (var index = 0; index < results.length; index++){
 				var prize = results[index];
-				if (prize.get("Index") == prizeIndex){
-					if (prize.get("Level") == prizeLevel){
-						var leftNum = prize.get("LeftNum");
-						var needPoint = prize.get("NeedPoint");
-						var userPoint = theUser.get("TotalScore");
-						var exchangePoint = theUser.get("TotalExchangePoint");
-						if (exchangePoint == null)
-						{
-							exchangePoint = 0;
-						}
-						if (userPoint < needPoint)
-						{
-							response.error("not enough point");
-							console.log("not enough point");
-							return;
-						}
-						if (leftNum <= 0)
-						{
-							response.error("not enough prize");
-							console.log("not enough prize");
-							return;
-						}
-						userPoint -= needPoint;
-						exchangePoint += needPoint;
-						theUser.set("TotalScore", userPoint);
-						theUser.set("TotalExchangePoint", exchangePoint);
-						theUser.save(null, {
-									  success: function(epr) {
-									    // Execute any logic that should take place after the object is saved.
-									    console.log("theUser.save");
-									    return;
-									  },
-									  error: function(epr, error) {
-									  	response.error("theUser.save error ", error.description);
-			    							console.log("theUser.save error", error.description);
-			    							return;
-									    // Execute any logic that should take place if the save fails.
-									    // error is a AV.Error with an error code and description.
-									    // alert('Failed to create new object, with error code: ' + error.description);
-									  }
-									});
-						leftNum = leftNum - 1;
-						prize.set("LeftNum", leftNum);
-						prize.save(null, {
-									  success: function(epr) {
-									    // Execute any logic that should take place after the object is saved.
-									    console.log("prize.save");
-									    return;
-									  },
-									  error: function(epr, error) {
-									  	response.error("prize.save error ", error.description);
-			    							console.log("prize.save error", error.description);
-			    							return;
-									    // Execute any logic that should take place if the save fails.
-									    // error is a AV.Error with an error code and description.
-									    // alert('Failed to create new object, with error code: ' + error.description);
-									  }
-									});
-						var guidStr = NewGuid();
-						var ExchangePrizeRecord = AV.Object.extend("ExchangePrizeRecord");
-						var epr = new ExchangePrizeRecord();
-						epr.set("UserName", theUser.get("username"));
-						epr.set("PrizeLevel", prizeLevel);
-						epr.set("PrizeIndex", prizeIndex);
-						epr.set("ExchangeID", guidStr);
-						epr.save(null, {
-						  success: function(epr) {
-						    // Execute any logic that should take place after the object is saved.
-						    // alert('New object created with objectId: ' + gameScore.id);
-						    console.log("exchangePrize Success");
-						    // theUser.save();
-						    // prize.save();
-						    var retObj = {"guid" : guidStr, "level" : prizeLevel, "index" : prizeIndex, "left" : leftNum, "total" : userPoint, "exchange" : exchangePoint};
-						    response.success(retObj);
-						    return;
-						  },
-						  error: function(epr, error) {
-						  	response.error("ExchangePrizeRecord save error ", error.description);
-    							console.log("ExchangePrizeRecord save error", error.description);
-    							return;
-						    // Execute any logic that should take place if the save fails.
-						    // error is a AV.Error with an error code and description.
-						    // alert('Failed to create new object, with error code: ' + error.description);
-						  }
-						});
+				if (prize.get("Id") == prizeId){
+					var leftNum = prize.get("LeftNum");
+					var needPoint = prize.get("NeedPoint");
+					var coupons = prize.get("Coupons");
+					var userPoint = theUser.get("TotalScore");
+					var exchangePoint = theUser.get("TotalExchangePoint");
+					var exchangeRecord = theUser.get("ExchangeRecord");
+					if (exchangePoint == null)
+					{
+						exchangePoint = 0;
 					}
+					if (exchangeRecord == null)
+					{
+						exchangeRecord = new Array();
+					}
+					if (userPoint < needPoint)
+					{
+						response.error("not enough point");
+						console.log("not enough point");
+						return;
+					}
+					if (leftNum <= 0)
+					{
+						response.error("not enough prize");
+						console.log("not enough prize");
+						return;
+					}
+					if (coupons.length <= 0)
+					{
+						response.error("not enough prize");
+						console.log("not enough prize");
+						return;
+					}
+					userPoint -= needPoint;
+					exchangePoint += needPoint;
+					theUser.set("TotalScore", userPoint);
+					theUser.set("TotalExchangePoint", exchangePoint);
+					theUser.save(null, {
+								  success: function(epr) {
+								    // Execute any logic that should take place after the object is saved.
+								    console.log("theUser.save");
+								    return;
+								  },
+								  error: function(epr, error) {
+								  	response.error("theUser.save error ", error.description);
+		    							console.log("theUser.save error", error.description);
+		    							return;
+								    // Execute any logic that should take place if the save fails.
+								    // error is a AV.Error with an error code and description.
+								    // alert('Failed to create new object, with error code: ' + error.description);
+								  }
+								});
+					leftNum = leftNum - 1;
+					prize.set("LeftNum", leftNum);
+					prize.save(null, {
+								  success: function(epr) {
+								    // Execute any logic that should take place after the object is saved.
+								    console.log("prize.save");
+								    return;
+								  },
+								  error: function(epr, error) {
+								  	response.error("prize.save error ", error.description);
+		    							console.log("prize.save error", error.description);
+		    							return;
+								    // Execute any logic that should take place if the save fails.
+								    // error is a AV.Error with an error code and description.
+								    // alert('Failed to create new object, with error code: ' + error.description);
+								  }
+								});
+					// var guidStr = NewGuid();
+					var guidStr = coupons.pop();
+					var ExchangePrizeRecord = AV.Object.extend("ExchangePrizeRecord");
+					var epr = new ExchangePrizeRecord();
+					epr.set("UserName", theUser.get("username"));
+					epr.set("PrizeLevel", prizeLevel);
+					epr.set("PrizeIndex", prizeIndex);
+					epr.set("ExchangeID", guidStr);
+					epr.save(null, {
+					  success: function(epr) {
+					    // Execute any logic that should take place after the object is saved.
+					    // alert('New object created with objectId: ' + gameScore.id);
+					    console.log("exchangePrize Success");
+					    // theUser.save();
+					    // prize.save();
+					    var exchangeRecordRet = {"code" : guidStr, "id" : prizeId};
+					    var retObj = {"record" : exchangeRecordRet, "id" : prizeId, "guid" : guidStr, "level" : prizeLevel, "index" : prizeIndex, "left" : coupons.length, "total" : userPoint, "exchange" : exchangePoint};
+					    response.success(retObj);
+					    return;
+					  },
+					  error: function(epr, error) {
+					  	response.error("ExchangePrizeRecord save error ", error.description);
+							console.log("ExchangePrizeRecord save error", error.description);
+							return;
+					    // Execute any logic that should take place if the save fails.
+					    // error is a AV.Error with an error code and description.
+					    // alert('Failed to create new object, with error code: ' + error.description);
+					  }
+					});
 				}
 			}
 		},
