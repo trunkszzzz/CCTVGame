@@ -315,6 +315,8 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 	console.log("testCommitAnswer's request is ", request);
 	var selectBrand = request.params["select"];
 	var sid = request.params["schedule"];
+	var today_score = request.params["today"];
+	var total_score = request.params["total"];
 	console.log("request is ", selectBrand);
 	console.log("getSchedule success! ", sid);
 	var query = new AV.Query(sid);
@@ -368,14 +370,16 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 						console.log("testCommitAnswer's user is ", theUser);
 						var s = 0;
 						var tts = 0;
-						if (theUser.has("TotalScore"))
-						{
-							s = theUser.get("TotalScore");
-						}
-						if (theUser.has("TodayScore"))
-						{
-							tts = theUser.get("TodayScore");
-						}
+						// if (theUser.has("TotalScore"))
+						// {
+							// s = theUser.get("TotalScore");
+						// }
+						// if (theUser.has("TodayScore"))
+						// {
+							// tts = theUser.get("TodayScore");
+						// }
+						s = total_score;
+						tts = today_score;
 						s += getScore;
 						tts += getScore;
 						theUser.set("TotalScore", s);
@@ -400,7 +404,6 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 						console.log("current score is ", s);
 						response.success("you selected ", brandName);
 						return;
-						
 					}
 				}
 			}
