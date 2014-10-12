@@ -400,6 +400,7 @@ AV.Cloud.define("testCommitAnswer", function(request, response){
 						console.log("current score is ", s);
 						response.success("you selected ", brandName);
 						return;
+						
 					}
 				}
 			}
