@@ -251,26 +251,10 @@ AV.Cloud.define("exchangePrize", function(request, response){
 					}
 					userPoint -= needPoint;
 					exchangePoint += needPoint;
-					theUser.set("TotalScore", userPoint);
-					theUser.set("TotalExchangePoint", exchangePoint);
-					theUser.save(null, {
-								  success: function(epr) {
-								    // Execute any logic that should take place after the object is saved.
-								    console.log("theUser.save");
-								    return;
-								  },
-								  error: function(epr, error) {
-								  	response.error("theUser.save error ", error.description);
-		    							console.log("theUser.save error", error.description);
-		    							return;
-								    // Execute any logic that should take place if the save fails.
-								    // error is a AV.Error with an error code and description.
-								    // alert('Failed to create new object, with error code: ' + error.description);
-								  }
-								});
 					leftNum = leftNum - 1;
-					prize.set("LeftNum", leftNum);
 					var guidStr = coupons.pop();
+					prize.set("LeftNum", leftNum);
+					prize.set("Coupons", coupons);
 					prize.save(null, {
 								  success: function(epr) {
 								    // Execute any logic that should take place after the object is saved.
@@ -287,6 +271,26 @@ AV.Cloud.define("exchangePrize", function(request, response){
 								  }
 								});
 					// var guidStr = NewGuid();
+					theUser.set("TotalScore", userPoint);
+					theUser.set("TotalExchangePoint", exchangePoint);
+					var objj = {"code" : guidStr, "id" : prizeId};
+					exchangeRecord.push(objj);
+					theUser.set("ExchangeRecord", exchangeRecord);
+					theUser.save(null, {
+								  success: function(epr) {
+								    // Execute any logic that should take place after the object is saved.
+								    console.log("theUser.save");
+								    return;
+								  },
+								  error: function(epr, error) {
+								  	response.error("theUser.save error ", error.description);
+		    							console.log("theUser.save error", error.description);
+		    							return;
+								    // Execute any logic that should take place if the save fails.
+								    // error is a AV.Error with an error code and description.
+								    // alert('Failed to create new object, with error code: ' + error.description);
+								  }
+								});
 					var ExchangePrizeRecord = AV.Object.extend("ExchangePrizeRecord");
 					var epr = new ExchangePrizeRecord();
 					epr.set("UserName", theUser.get("username"));
