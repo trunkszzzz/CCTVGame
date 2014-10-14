@@ -270,6 +270,7 @@ AV.Cloud.define("exchangePrize", function(request, response){
 								});
 					leftNum = leftNum - 1;
 					prize.set("LeftNum", leftNum);
+					var guidStr = coupons.pop();
 					prize.save(null, {
 								  success: function(epr) {
 								    // Execute any logic that should take place after the object is saved.
@@ -286,7 +287,6 @@ AV.Cloud.define("exchangePrize", function(request, response){
 								  }
 								});
 					// var guidStr = NewGuid();
-					var guidStr = coupons.pop();
 					var ExchangePrizeRecord = AV.Object.extend("ExchangePrizeRecord");
 					var epr = new ExchangePrizeRecord();
 					epr.set("UserName", theUser.get("username"));
